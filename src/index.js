@@ -1,4 +1,4 @@
-import { ToDoObject, itemHolder } from "./item";
+import { ToDoObject, itemHolder, projectHolder, projectObject } from "./item";
 
 
 const testToDo = ToDoObject('test','testdesc','testDue','testPrio','testProj');
@@ -17,3 +17,9 @@ console.log(newHolder.getItem(testToDo).getTitle());
 newHolder.getItem(testToDo2).setDesc('This is a test');
 console.log(newHolder.getItem(testToDo2).getDesc());
 console.log(newHolder.getAllItems());
+
+const testProject = projectObject('Test Project', 'This is for Testing');
+const projectHolderNew = projectHolder();
+
+projectHolderNew.addProject(testProject);
+console.log(projectHolderNew.getProject(testProject).getTitle())

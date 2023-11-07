@@ -1,0 +1,9 @@
+:root {
+    font-size: 12px;
+}
+
+
+#mainWrapper {
+    display: flex;
+    flex-direction: column;
+}

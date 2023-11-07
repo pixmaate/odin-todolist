@@ -1,4 +1,4 @@
-export {ToDoObject, itemHolder};
+export {ToDoObject, itemHolder, projectObject, projectHolder};
 
 
 function ToDoObject(title, description, dueDate, priority, project) {
@@ -86,3 +86,52 @@ function itemHolder(){
 
     return {addItem,getItem,getAllItems}
 };
+
+function projectObject(title,description) {
+    let _title = title;
+    let _description = description;
+    let _projectID = createID();
+
+    function getDesc() {
+        return _description;
+    }
+
+    function getTitle() {
+        return _title;
+    }
+
+    function createID() {
+        return Math.floor(Math.random() * Date.now());
+    }
+
+    function getID() {
+        return _projectID
+    }
+
+    return{getDesc,getTitle,getID}
+};
+
+function projectHolder() {
+    const _projectArray = [];
+
+    function addProject(project) {
+        if (_projectArray[project.getID()]) {
+            return;
+        }
+        else {
+            _projectArray[project.getID()] = project;
+        };        
+    };
+
+    function getProject(project) {
+        return _projectArray[project.getID()];
+    }
+
+    function getAllProjects() {
+        return _projectArray;
+    }
+
+    
+
+    return{addProject,getProject,getAllProjects}
+}
