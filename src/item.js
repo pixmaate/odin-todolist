@@ -1,4 +1,4 @@
-export {ToDoObject};
+export {ToDoObject, itemHolder};
 
 
 function ToDoObject(title, description, dueDate, priority, project) {
@@ -59,4 +59,30 @@ function ToDoObject(title, description, dueDate, priority, project) {
 
 
     return{setTitle,getTitle,setDesc,getDesc,setDueDate,getDueDate,setPrio,getPrio,setProject,getProject,getID};
+};
+
+
+function itemHolder(){
+    const _itemArray = [];
+
+    function addItem(item) {
+        if (_itemArray[item.getID()]) {
+            return;
+        }
+        else {
+            _itemArray[item.getID()] = item;
+        };        
+    };
+
+    function getItem(item) {
+        return _itemArray[item.getID()];
+    }
+
+    function getAllItems() {
+        return _itemArray;
+    }
+
+
+
+    return {addItem,getItem,getAllItems}
 };
