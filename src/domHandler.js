@@ -1,4 +1,43 @@
-export {itemCard};
+export {submitBtnHandler};
+
+import { ToDoObject, itemHolder, projectHolder, projectObject } from "./item";
+
+function submitBtnHandler() {
+
+    function startFunctionality() {
+        const createToDOBtn = document.querySelector('#newItemBtn');
+        const itemHolderArray = itemHolder();
+
+        createToDOBtn.addEventListener('click', (event) =>{
+            event.preventDefault();
+            
+
+            const itemTitle = document.querySelector('#itemTitle').value;
+            const itemDesc = document.querySelector('#descritpion').value;
+            const itemDue = document.querySelector('#itemDue').value;
+            const itemPrio = document.querySelector('#itemPrio').value;
+            const itemProj = document.querySelector('#itemProject').value;
+
+
+            const toDo = createOneItem(itemTitle,itemDesc,itemDue,itemPrio,itemProj);
+            itemHolderArray.addItem(toDo);
+
+            const itemHolderObject = itemCard().makeItemCard(itemHolderArray.getItem(toDo));
+        
+        });
+    };
+
+    function createOneItem(title,desc,due,prio,proj) {
+        return ToDoObject(title,desc,due,prio,proj);
+    };
+
+
+
+    return {startFunctionality}
+};
+
+
+
 
 
 function itemCard() {
@@ -13,15 +52,27 @@ function itemCard() {
         itemCard.appendChild(createDesc(toDoItem));
         itemCard.appendChild(createDueDate(toDoItem));
         itemCard.appendChild(createPrio(toDoItem));
-        itemCard.appendChild(createProj(toDoItem));
+        itemCard.appendChild(createDeleteButton(itemCard.id));
 
-        
-
-        
-
-        itemCardWrapper.appendChild(itemCard);
+        itemCardWrapper.appendChild(itemCard);       
         
     };
+
+    function deleteItemCard(itemID) {
+        const divToDelete = document.getElementById(`${itemID}`);
+            divToDelete.innerHTML = '';
+            divToDelete.remove();
+    };
+
+    function createDeleteButton(itemID) {
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.addEventListener('click', (event) =>{
+            deleteItemCard(itemID); 
+        });
+
+        return deleteButton;
+    }
 
     function createTitle(itemObj) {
         const itemTitle = document.createElement('h3');
