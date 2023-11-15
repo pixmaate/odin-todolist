@@ -85,9 +85,7 @@ function itemHolder(){
     
     function removeItem(toDoItem) {
         if (getItem(toDoItem)) {
-            console.log(getAllItems());
             delete _itemArray[toDoItem.getID()];
-            console.log(getAllItems());            
         };
     }
 
@@ -123,6 +121,7 @@ function projectObject(title,description) {
 function projectHolder() {
     const _projectArray = [];
 
+
     function addProject(project) {
         if (_projectArray[project.getID()]) {
             return;
@@ -135,6 +134,7 @@ function projectHolder() {
     function getProject(project) {
         return _projectArray[project.getID()];
     }
+
 
     function getAllProjects() {
         return _projectArray;

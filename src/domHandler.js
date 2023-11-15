@@ -3,6 +3,7 @@ export {submitBtnHandler};
 import { ToDoObject, itemHolder, projectHolder, projectObject } from "./item";
 
 
+
 //////////////////////////////////////////
 //// START of Webpage Functionality /////
 ////////////////////////////////////////
@@ -13,6 +14,15 @@ function submitBtnHandler() {
     function startFunctionality() {
         const createToDOBtn = document.querySelector('#newItemBtn');
         const itemHolderArray = itemHolder();
+
+
+        const projectHolderArray = projectHolder();
+        const defaultProject = projectObject('Default','Default');
+        projectHolderArray.addProject(defaultProject);
+        console.log(projectHolderArray.getAllProjects());
+
+        const projectSelector = createProjectSelector().projectSelector(projectHolderArray.getAllProjects());
+
 
         createToDOBtn.addEventListener('click', (event) =>{
             event.preventDefault();
@@ -206,4 +216,61 @@ function expandButton() {
 
 
     return {createExpandButton}
+};
+
+
+/////////////////////////
+///// Project Selector /
+///////////////////////
+
+function createProjectSelector() {
+
+    function projectSelector(projectList) {
+        const controlArea = document.querySelector('#controls');
+        const dropDownArea = document.createElement('div');
+        const dropDownButton = document.createElement('button');
+        dropDownButton.textContent = 'Select';
+        dropDownArea.appendChild(dropDownButton);
+
+
+
+        dropDownButton.classList.add('dropdown');
+        createDropdownElements(projectList, dropDownArea);
+        dropDownButton.addEventListener('click', (event) =>{
+            event.preventDefault();
+            dropDownButton.classList.toggle('show');
+            const dropDownElements = document.querySelectorAll('.dropdown-element');
+            console.log(dropDownElements);
+            for (let i=0;i<dropDownElements.length;i++) {
+                
+                const openDropDown = dropDownElements[i];
+                openDropDown.classList.toggle('show');
+            }
+
+        }); 
+        
+        controlArea.after(dropDownArea);
+        
+
+    };
+
+    function createDropdownElements(projectList,appendArea) {
+        console.log(projectList);
+        for (const [key] of Object.entries(projectList)) {
+            const projectElement = document.createElement('p');
+            projectElement.classList.add('dropdown-element');
+            projectElement.textContent = projectList[key].getTitle();
+            projectElement.addEventListener('click', (event) =>{
+                console.log(dropDownSelect(event.target))    
+            });
+
+            appendArea.appendChild(projectElement);
+        };
+    };
+
+    function dropDownSelect(element) {
+        return element.textContent;
+    }
+
+    return {projectSelector};
 };
