@@ -45,13 +45,12 @@ function itemCard() {
     function makeItemCard(toDoItem) {
         const itemCardWrapper = document.querySelector('#cardWrapper');
         const itemCard = document.createElement('div');
+        
         itemCard.id = toDoItem.getID();
         itemCard.classList.add('itemCard');
 
         itemCard.appendChild(createTitle(toDoItem));
-        itemCard.appendChild(createDesc(toDoItem));
-        itemCard.appendChild(createDueDate(toDoItem));
-        itemCard.appendChild(createPrio(toDoItem));
+        itemCard.appendChild(expandButton().createExpandButton(toDoItem));
         itemCard.appendChild(createDeleteButton(itemCard.id));
 
         itemCardWrapper.appendChild(itemCard);       
@@ -115,4 +114,46 @@ function itemCard() {
     };
 
     return{makeItemCard}
+};
+
+function expandButton() {
+
+    function createExpandButton(toDoItem) {
+        const expandButton = document.createElement('button');
+        expandButton.textContent = 'Expand';
+
+        expandButton.addEventListener('click', (event) => {
+            expandDetails(toDoItem);
+        })
+
+        return expandButton;
+    };
+
+    function expandDetails(toDoItem) {
+        const myItemCard = document.getElementById(toDoItem.getID());
+        if (isExpanded(myItemCard)) {
+            const divToDelete = myItemCard.querySelector('.expand-detail');
+            divToDelete.innerHTML = '';
+            divToDelete.remove();
+        }
+        else {
+            const myDetailsDiv = document.createElement('div');
+            myDetailsDiv.textContent = 'My Div'
+
+            myDetailsDiv.classList.add('expand-detail');
+            
+            myItemCard.appendChild(myDetailsDiv);
+        }
+        
+
+
+    };
+
+    function isExpanded(mainElement) {
+        return (mainElement.querySelector('.expand-detail')) ? true : false;
+    };
+
+
+
+    return {createExpandButton}
 };
