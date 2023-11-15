@@ -12,3 +12,11 @@
     display: grid;
     grid-template: 1fr / repeat(5, 1fr);
 }
+
+.dropdown-element {
+    display: none;
+}
+
+.show {
+    display: block;
+}
