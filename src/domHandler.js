@@ -28,7 +28,7 @@ function submitBtnHandler() {
             const toDo = createOneItem(itemTitle,itemDesc,itemDue,itemPrio,itemProj);
             itemHolderArray.addItem(toDo);
 
-            const itemHolderObject = itemCard().makeItemCard(itemHolderArray.getItem(toDo));
+            const itemHolderObject = itemCard(itemHolderArray).makeItemCard(itemHolderArray.getItem(toDo));
         
         });
     };
@@ -49,10 +49,10 @@ function submitBtnHandler() {
 ////////////////////////////////////////
 
 
-function itemCard() {
+function itemCard(itemArray) {
 
     function makeItemCard(toDoItem) {
-        const itemCard = createItemHeader().itemHeader(toDoItem);
+        const itemCard = createItemHeader(itemArray).itemHeader(toDoItem);
         
     };
 
@@ -68,7 +68,7 @@ function itemCard() {
 //// Item Header and Item Details   /////
 ////////////////////////////////////////
 
-function createItemHeader() {
+function createItemHeader(itemArray) {
 
     function itemHeader(toDoItem) {
         const itemCardWrapper = document.querySelector('#cardWrapper');
@@ -79,7 +79,7 @@ function createItemHeader() {
 
         itemCard.appendChild(createTitle(toDoItem));
         itemCard.appendChild(expandButton().createExpandButton(toDoItem));
-        itemCard.appendChild(createDeleteButton(itemCard.id));
+        itemCard.appendChild(createDeleteButton(itemCard.id,toDoItem));
 
         itemCardWrapper.appendChild(itemCard);     
 
@@ -93,17 +93,18 @@ function createItemHeader() {
         return itemTitle;
     };
 
-    function deleteItemCard(itemID) {
+    function deleteItemCard(itemID,toDoItem) {
         const divToDelete = document.getElementById(`${itemID}`);
-            divToDelete.innerHTML = '';
-            divToDelete.remove();
+        divToDelete.innerHTML = '';
+        divToDelete.remove();
+        itemArray.removeItem(toDoItem);
     };
 
-    function createDeleteButton(itemID) {
+    function createDeleteButton(itemID,toDoItem) {
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
         deleteButton.addEventListener('click', (event) =>{
-            deleteItemCard(itemID); 
+            deleteItemCard(itemID,toDoItem); 
         });
 
         return deleteButton;

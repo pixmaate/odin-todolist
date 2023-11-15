@@ -82,9 +82,18 @@ function itemHolder(){
         return _itemArray;
     }
 
+    
+    function removeItem(toDoItem) {
+        if (getItem(toDoItem)) {
+            console.log(getAllItems());
+            delete _itemArray[toDoItem.getID()];
+            console.log(getAllItems());            
+        };
+    }
 
 
-    return {addItem,getItem,getAllItems}
+
+    return {addItem,getItem,getAllItems, removeItem}
 };
 
 function projectObject(title,description) {
