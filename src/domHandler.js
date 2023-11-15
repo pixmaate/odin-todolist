@@ -2,6 +2,12 @@ export {submitBtnHandler};
 
 import { ToDoObject, itemHolder, projectHolder, projectObject } from "./item";
 
+
+//////////////////////////////////////////
+//// START of Webpage Functionality /////
+////////////////////////////////////////
+
+
 function submitBtnHandler() {
 
     function startFunctionality() {
@@ -38,11 +44,33 @@ function submitBtnHandler() {
 
 
 
+//////////////////////////////////////////
+////   Creation of One Item Card    /////
+////////////////////////////////////////
 
 
 function itemCard() {
 
     function makeItemCard(toDoItem) {
+        const itemCard = createItemHeader().itemHeader(toDoItem);
+        
+    };
+
+   
+
+    
+
+    return{makeItemCard}
+};
+
+
+//////////////////////////////////////////
+//// Item Header and Item Details   /////
+////////////////////////////////////////
+
+function createItemHeader() {
+
+    function itemHeader(toDoItem) {
         const itemCardWrapper = document.querySelector('#cardWrapper');
         const itemCard = document.createElement('div');
         
@@ -53,8 +81,16 @@ function itemCard() {
         itemCard.appendChild(expandButton().createExpandButton(toDoItem));
         itemCard.appendChild(createDeleteButton(itemCard.id));
 
-        itemCardWrapper.appendChild(itemCard);       
-        
+        itemCardWrapper.appendChild(itemCard);     
+
+    };
+
+    function createTitle(itemObj) {
+        const itemTitle = document.createElement('h3');
+        itemTitle.classList.add('itemTitle');
+        itemTitle.textContent = itemObj.getTitle();
+
+        return itemTitle;
     };
 
     function deleteItemCard(itemID) {
@@ -73,12 +109,24 @@ function itemCard() {
         return deleteButton;
     }
 
-    function createTitle(itemObj) {
-        const itemTitle = document.createElement('h3');
-        itemTitle.classList.add('itemTitle');
-        itemTitle.textContent = itemObj.getTitle();
 
-        return itemTitle;
+
+    return{itemHeader}
+};
+
+
+function createItemDetails() {
+
+    function itemDetails(toDoItem) {
+        const myDetailsDiv = document.createElement('div');
+        myDetailsDiv.classList.add('expand-detail');
+
+        myDetailsDiv.appendChild(createDesc(toDoItem));
+        myDetailsDiv.appendChild(createDueDate(toDoItem));
+        myDetailsDiv.appendChild(createPrio(toDoItem));
+        myDetailsDiv.appendChild(createProj(toDoItem));
+            
+        return myDetailsDiv;
     };
 
     function createDesc(itemObj) {
@@ -113,8 +161,14 @@ function itemCard() {
         return itemProj;
     };
 
-    return{makeItemCard}
+    return{itemDetails}
 };
+
+
+
+//////////////////////////////////////////
+//// Create the Expand Button Func  /////
+////////////////////////////////////////
 
 function expandButton() {
 
@@ -137,12 +191,7 @@ function expandButton() {
             divToDelete.remove();
         }
         else {
-            const myDetailsDiv = document.createElement('div');
-            myDetailsDiv.textContent = 'My Div'
-
-            myDetailsDiv.classList.add('expand-detail');
-            
-            myItemCard.appendChild(myDetailsDiv);
+            myItemCard.appendChild(createItemDetails().itemDetails(toDoItem));
         }
         
 
