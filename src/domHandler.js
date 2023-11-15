@@ -262,6 +262,7 @@ function createProjectSelector() {
             projectElement.textContent = projectList[key].getTitle();
             projectElement.addEventListener('click', (event) =>{
                 console.log(dropDownSelect(event.target))    
+                projectElement.classList.remove('show');
             });
 
             appendArea.appendChild(projectElement);
