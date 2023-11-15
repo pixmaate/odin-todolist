@@ -20,3 +20,13 @@
 .show {
     display: block;
 }
+
+#mainArea {
+    display: grid;
+    grid-template-columns: 0.3fr 1fr;
+    gap: 10px;
+}
+
+#contentWrapper {
+    border-style: double;
+}
