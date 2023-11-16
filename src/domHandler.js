@@ -136,7 +136,11 @@ function submitBtnHandler() {
 
     function startFunctionality(itemHolderElement) {
         const createToDOBtn = document.querySelector('#newItemBtn');
+        const dropDownBtn = document.querySelector('#dropdown-button');
 
+        dropDownBtn.addEventListener('click', (evnt) =>{
+            const drawnItemCards = contentDraw().drawItemCards(itemHolderElement);
+        }) 
 
         
         
@@ -206,7 +210,7 @@ function itemCard(itemArray) {
 ////////////////////////////////////////
 
 function createItemHeader(itemArray) {
-
+    
     function itemHeader(toDoItem) {
         const itemCardWrapper = document.querySelector('#cardWrapper');
         const itemCard = document.createElement('div');
@@ -373,6 +377,7 @@ function createProjectSelector(projectHolder) {
     function dropDownClick(newText) {
         const dropDownButton = document.getElementById('dropdown-button');
         dropDownButton.textContent = newText;
+        
     }
 
     function addProjectButton(_projectHolder, listToDraw, appendArea) {
