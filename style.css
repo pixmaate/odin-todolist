@@ -36,3 +36,8 @@
 #contentWrapper {
     border-style: double;
 }
+
+.dropdown-div-element {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
