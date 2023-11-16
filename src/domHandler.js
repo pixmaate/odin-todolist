@@ -9,7 +9,24 @@ import { ToDoObject, itemHolder, projectHolder, projectObject } from "./item";
 
 function contentDraw() {
     const itemHolderArray = itemHolder();
+    const projectHolderArray = projectHolder();
+    const defaultProject = projectObject('Default','Default');
+    projectHolderArray.addProject(defaultProject);
+    console.log(projectHolderArray.getAllProjects());
+    drawProjectSelector();
 
+
+    function drawProjectSelector() {
+        if (document.getElementById('dropdown-button')) {
+            '';
+        }
+        else {
+            const projectSelector = createProjectSelector(projectHolderArray).projectSelector(projectHolderArray.getAllProjects());
+        }
+    }
+
+
+    
 
     function drawContent() {
         const buttonHandler = submitBtnHandler();
@@ -36,7 +53,7 @@ function contentDraw() {
 //// DRAW PROJ ////////
 //////////////////////
 
-    function drawDropdown(listToDraw, appendArea) {
+    function drawDropdown(listToDraw, appendArea, projectObject) {
         if (document.getElementById('dropdown-div')) {
             const clearDropDown = clearDiv().clearDivID('dropdown-div', true);
         }
@@ -51,16 +68,19 @@ function contentDraw() {
                 });
                 dropDownDiv.appendChild(dropDownElement);
             }
-            dropDownDiv.appendChild(drawAddButton());
+            dropDownDiv.appendChild(drawAddButton(projectObject));
             appendArea.appendChild(dropDownDiv);
         };
         
     }
 
-    function drawAddButton() {
+    function drawAddButton(projectObject) {
         const addButton = document.createElement('button');
         addButton.id = 'add-button';
-        addButton.textContent = '+'; 
+        addButton.textContent = '+';
+        addButton.addEventListener('click', (event) =>{
+            createProjectSelector().addProject(projectObject);
+        }) 
 
 
         return addButton
@@ -103,12 +123,8 @@ function submitBtnHandler() {
         const createToDOBtn = document.querySelector('#newItemBtn');
 
 
-        const projectHolderArray = projectHolder();
-        const defaultProject = projectObject('Default','Default');
-        projectHolderArray.addProject(defaultProject);
-        console.log(projectHolderArray.getAllProjects());
-
-        const projectSelector = createProjectSelector(projectHolderArray).projectSelector(projectHolderArray.getAllProjects());
+        
+        
 
 
         createToDOBtn.addEventListener('click', (event) =>{
@@ -323,7 +339,7 @@ function createProjectSelector(projectHolder) {
         dropDownButton.id = 'dropdown-button';
 
         dropDownButton.addEventListener('click', (event) =>{
-            contentDraw().drawDropdown(projectList, dropDownArea);
+            contentDraw().drawDropdown(projectList, dropDownArea, projectHolder);
         });
 
         dropDownArea.appendChild(dropDownButton);
@@ -336,8 +352,16 @@ function createProjectSelector(projectHolder) {
         dropDownButton.textContent = newText;
     }
 
+    function addProject(_projectHolder) {
+        const testProject = projectObject('Test','Test');
 
-    return {projectSelector, dropDownClick}
+        _projectHolder.addProject(testProject);
+        console.log(_projectHolder.getAllProjects());
+
+    };
+
+
+    return {projectSelector, dropDownClick, addProject}
 };
 
 
