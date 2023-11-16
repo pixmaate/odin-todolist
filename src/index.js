@@ -1,7 +1,7 @@
-import { submitBtnHandler } from "./domHandler";
+import { contentDraw } from "./domHandler";
 
 
 
 
-const buttonHandler = submitBtnHandler();
-buttonHandler.startFunctionality();
+const mainContent = contentDraw();
+mainContent.drawContent();

@@ -1,18 +1,52 @@
-export {submitBtnHandler};
+export {contentDraw};
 
 import { ToDoObject, itemHolder, projectHolder, projectObject } from "./item";
 
+//////////////////////////////
+///// DRAW FUNCTIONS ////////
+////////////////////////////
+
 
 function contentDraw() {
+    const itemHolderArray = itemHolder();
+
 
     function drawContent() {
+        const buttonHandler = submitBtnHandler();
+        buttonHandler.startFunctionality(itemHolderArray);
+    }
+
+    function drawItemCards(itemHolderElement) {
+        console.log(itemHolderElement.getAllItems())
+        const clearScreen = clearDiv().clearDivID('cardWrapper')
+        const itemHolderObject = itemCard(itemHolderElement).makeItemCard(itemHolderElement.getAllItems());
+
+    }
+
+    function clearItemCards() {
 
     }
 
 
-    return {drawContent}
+    return {drawContent, drawItemCards}
 };
 
+function clearDiv() {
+
+    function clearDivID(divID, isElementDelete) {
+        const divToDelete = document.getElementById(divID);
+        divToDelete.innerHTML = '';
+        (isElementDelete) ? divToDelete.remove() : '';
+    }
+
+    function clearDivClass(divClass, isElementDelete) {
+        const divToDelete = document.querySelector(divClass);
+        divToDelete.innerHTML = ''
+        (isElementDelete) ? divToDelete.remove() : '';
+    }
+ 
+    return {clearDivID, clearDivClass}
+}
 
 
 //////////////////////////////////////////
@@ -22,9 +56,8 @@ function contentDraw() {
 
 function submitBtnHandler() {
 
-    function startFunctionality() {
+    function startFunctionality(itemHolderElement) {
         const createToDOBtn = document.querySelector('#newItemBtn');
-        const itemHolderArray = itemHolder();
 
 
         const projectHolderArray = projectHolder();
@@ -47,9 +80,8 @@ function submitBtnHandler() {
 
 
             const toDo = createOneItem(itemTitle,itemDesc,itemDue,itemPrio,itemProj);
-            itemHolderArray.addItem(toDo);
-
-            const itemHolderObject = itemCard(itemHolderArray).makeItemCard(itemHolderArray.getItem(toDo));
+            itemHolderElement.addItem(toDo);
+            const drawnItemCards = contentDraw().drawItemCards(itemHolderElement);
         
         });
     };
@@ -73,7 +105,9 @@ function submitBtnHandler() {
 function itemCard(itemArray) {
 
     function makeItemCard(toDoItem) {
-        const itemCard = createItemHeader(itemArray).itemHeader(toDoItem);
+        for (const [key] of Object.entries(toDoItem)) {
+            const itemCard = createItemHeader(itemArray).itemHeader(toDoItem[key]);
+        }
         
     };
 
@@ -115,10 +149,10 @@ function createItemHeader(itemArray) {
     };
 
     function deleteItemCard(itemID,toDoItem) {
-        const divToDelete = document.getElementById(`${itemID}`);
-        divToDelete.innerHTML = '';
-        divToDelete.remove();
         itemArray.removeItem(toDoItem);
+        const drawnItemCards = contentDraw().drawItemCards(itemArray);
+
+
     };
 
     function createDeleteButton(itemID,toDoItem) {
