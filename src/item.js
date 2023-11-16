@@ -140,7 +140,13 @@ function projectHolder() {
         return _projectArray;
     }
 
+    function removeProject(projectItem) {
+        if (getProject(projectItem)) {
+            delete _projectArray[projectItem.getID()];
+        };
+    }
+
     
 
-    return{addProject,getProject,getAllProjects}
+    return{addProject,getProject,getAllProjects, removeProject}
 }
