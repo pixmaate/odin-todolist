@@ -63,6 +63,9 @@ function contentDraw() {
                 const removeButton = document.createElement('button');
                 removeButton.textContent = 'X';
 
+                const dropDownElementDiv = document.createElement('div');
+                dropDownElementDiv.classList.add('dropdown-div-element');
+
                 dropDownElement.textContent = listToDraw[key].getTitle();
                 dropDownElement.addEventListener('click', (event) =>{
                     createProjectSelector().dropDownClick(event.target.textContent);      
@@ -74,8 +77,9 @@ function contentDraw() {
                     drawDropdown(listToDraw, appendArea, projectObject, isProjAdd);
                 })
                 
-                dropDownDiv.appendChild(dropDownElement);
-                (listToDraw[key].getTitle() == 'Default') ? '' : dropDownDiv.appendChild(removeButton);
+                dropDownElementDiv.appendChild(dropDownElement);
+                (listToDraw[key].getTitle() == 'Default') ? '' : dropDownElementDiv.appendChild(removeButton);
+                dropDownDiv.appendChild(dropDownElementDiv);
 
             }
             dropDownDiv.appendChild(drawAddButton(projectObject, listToDraw, appendArea));
@@ -88,6 +92,8 @@ function contentDraw() {
             const dropDownDiv = document.createElement('div');
             dropDownDiv.id = 'dropdown-div';
             for (const [key] of Object.entries(listToDraw)) {
+                const dropDownElementDiv = document.createElement('div');
+                dropDownElementDiv.classList.add('dropdown-div-element');
                 const dropDownElement = document.createElement('p');
                 dropDownElement.textContent = listToDraw[key].getTitle();
 
@@ -103,8 +109,9 @@ function contentDraw() {
                     drawDropdown(listToDraw, appendArea, projectObject, isProjAdd);
                 })
                 
-                dropDownDiv.appendChild(dropDownElement);
-                (listToDraw[key].getTitle() == 'Default') ? '' : dropDownDiv.appendChild(removeButton);
+                dropDownElementDiv.appendChild(dropDownElement);
+                (listToDraw[key].getTitle() == 'Default') ? '' : dropDownElementDiv.appendChild(removeButton);
+                dropDownDiv.appendChild(dropDownElementDiv);
             }
             dropDownDiv.appendChild(drawAddButton(projectObject, listToDraw, appendArea));
             appendArea.appendChild(dropDownDiv);
