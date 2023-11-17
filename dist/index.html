@@ -17,7 +17,7 @@
         <div id="mainArea">
             <div id="sideControl">
                 <div id="controls">
-                    <form>
+                    <form id="inputFormItems">
 
                         <label for="itemTitle">Item Title:</label>
                         <input type="text" id="itemTitle" name="item_name" />
@@ -26,9 +26,15 @@
                         <label for="itemDue">Due Date:</label>
                         <input type="text" id="itemDue" name="item_due" />
                         <label for="itemPrio">Priority:</label>
-                        <input type="text" id="itemPrio" name="item_prio" />
+                        <select id="itemPrio" name="item_prio">
+                            <option value="Low" >Low</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="High" >High</option>
+                        </select>
                         <label for="itemProject">Project: </label>
-                        <input type="text" id="itemProject" name="item_itemProject" />
+                        <select id="itemProject" name="item_itemProject">
+                            <option value="Default" selected>Default</option>
+                        </select>
 
 
                         <button id="newItemBtn">Create To-Do</button> 
