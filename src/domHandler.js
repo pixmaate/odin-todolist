@@ -413,8 +413,22 @@ function createProjectSelector(projectHolder) {
     function deleteProject(projectObject, projectToRemove) {
         const dropDownButton = document.getElementById('dropdown-button');
         dropDownButton.textContent = 'Default';
+        removeProjectToOptions(projectToRemove.getTitle());
         projectObject.removeProject(projectToRemove);
     };
+
+    function addProjectToOptions(projectTitle) {
+        const projectSelector = document.getElementById('itemProject');
+        const newProjectOption = document.createElement('option');
+        newProjectOption.value = projectTitle;
+        newProjectOption.textContent = projectTitle;
+        projectSelector.appendChild(newProjectOption);
+    }
+
+    function removeProjectToOptions(projectTitle) {
+        const optionToDelete = document.querySelector(`#itemProject option[value='${projectTitle}']`)
+        optionToDelete.remove();
+    }
 
     function addProjectButton(_projectHolder, listToDraw, appendArea) {
         const addButton = document.getElementById('add-button');
@@ -445,6 +459,7 @@ function createProjectSelector(projectHolder) {
             const deleteSelf = clearDiv().clearDivID('project-add-div', true);
             const newProject = projectObject(projectTitle,'Default');
             addProj(_projectHolder, newProject);
+            addProjectToOptions(projectTitle);
             contentDraw().drawDropdown(listToDraw, appendArea, _projectHolder, true);
         });
         projectAddDiv.appendChild(projectName);
