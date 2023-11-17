@@ -2,6 +2,8 @@
     font-size: 12px;
 }
 
+h3, p {margin:0;}
+
 
 #mainWrapper {
     display: flex;
@@ -15,8 +17,15 @@
 
 .expand-detail {
     display: grid;
-    grid-template: 1fr 1fr / 2fr 1fr 1fr 1fr;
+    grid-template: 1fr / 2fr 1fr 1fr 1fr;
     grid-column: 1/4;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    border-bottom: dotted;
+    align-items: center;
+    justify-items: center;
+    gap: 10px;
+    border-width: 2px;
 }
 
 .dropdown-element {
