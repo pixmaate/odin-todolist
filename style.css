@@ -60,6 +60,12 @@
     font-weight: 800;
 }
 
+#inputFormItems {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
 .dropdown-div-element:hover {
     background-color: blueviolet;
 }
