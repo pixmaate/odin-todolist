@@ -57,8 +57,20 @@ function ToDoObject(title, description, dueDate, priority, project) {
         return _project;
     }
 
+    function getItemString() {
+        const itemList = [];
+        itemList.push(getID());
+        itemList.push(getTitle());
+        itemList.push(getDesc());
+        itemList.push(getDueDate());
+        itemList.push(getPrio());
+        itemList.push(getProject());
 
-    return{setTitle,getTitle,setDesc,getDesc,setDueDate,getDueDate,setPrio,getPrio,setProject,getProject,getID};
+        return itemList;
+    }
+
+
+    return{setTitle,getTitle,setDesc,getDesc,setDueDate,getDueDate,setPrio,getPrio,setProject,getProject,getID, getItemString};
 };
 
 

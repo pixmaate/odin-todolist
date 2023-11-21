@@ -188,7 +188,9 @@ function submitBtnHandler() {
 
 
             const toDo = createOneItem(itemTitle,itemDesc,itemDue,itemPrio,itemProj);
-            itemHolderElement.addItem(toDo);
+            itemHolderElement.addItem(toDo, itemHolderElement);
+            getStorage().saveToLocal(toDo);
+            getStorage().loadFromLocal();
             const drawnItemCards = contentDraw().drawItemCards(itemHolderElement);
         
         });
@@ -377,6 +379,37 @@ function expandButton() {
 
 
     return {createExpandButton}
+};
+
+function getStorage() {
+
+    function saveToLocal(toDoSave) {
+        const itemID = toDoSave.getID()
+        const oneItem = toDoSave.getItemString();
+
+
+        const existingList = [];
+        if (localStorage.getItem("item_list") != null) {
+            const currentItems = JSON.parse(localStorage.getItem("item_list"));
+            for (let i=0;i<currentItems.length;i++) {
+                existingList.push(currentItems[i]);
+            }
+            existingList.push(oneItem);
+        }
+        else {
+            existingList.push(oneItem);
+        }
+
+
+        localStorage.setItem("item_list", JSON.stringify(existingList));
+    }
+
+    function loadFromLocal() {
+        const loadedList = JSON.parse(localStorage.getItem("item_list"));
+        console.log(loadedList);
+    }
+
+    return {saveToLocal, loadFromLocal}
 };
 
 
