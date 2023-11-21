@@ -69,6 +69,12 @@ h3, p {margin:0;}
     font-weight: 800;
 }
 
+.dropdown-div-element {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.2rem;
+}
+
 #inputFormItems {
     display: flex;
     flex-direction: column;
@@ -76,7 +82,7 @@ h3, p {margin:0;}
 }
 
 .dropdown-div-element:hover {
-    background-color: blueviolet;
+    background-color: lightgoldenrodyellow;
 }
 
 #sideControl,
