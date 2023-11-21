@@ -173,7 +173,16 @@ function submitBtnHandler() {
         }) 
 
         
-        
+        const loadedCards = getStorage().loadFromLocal();
+
+        if (loadedCards != null) {
+            for (let i=0;i<loadedCards.length;i++) {
+                const existingItem = createOneItem(loadedCards[i][1],loadedCards[i][2],loadedCards[i][3],loadedCards[i][4],loadedCards[i][5]);
+                itemHolderElement.addItem(existingItem, itemHolderElement);  
+            };
+            const drawnItemCards = contentDraw().drawItemCards(itemHolderElement);
+
+        };
 
 
         createToDOBtn.addEventListener('click', (event) =>{
@@ -190,7 +199,6 @@ function submitBtnHandler() {
             const toDo = createOneItem(itemTitle,itemDesc,itemDue,itemPrio,itemProj);
             itemHolderElement.addItem(toDo, itemHolderElement);
             getStorage().saveToLocal(toDo);
-            getStorage().loadFromLocal();
             const drawnItemCards = contentDraw().drawItemCards(itemHolderElement);
         
         });
@@ -406,7 +414,10 @@ function getStorage() {
 
     function loadFromLocal() {
         const loadedList = JSON.parse(localStorage.getItem("item_list"));
-        console.log(loadedList);
+        if (loadedList != null) {
+            return loadedList;
+        }
+        
     }
 
     return {saveToLocal, loadFromLocal}
