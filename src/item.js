@@ -1,7 +1,7 @@
 export {ToDoObject, itemHolder, projectObject, projectHolder};
 
 
-function ToDoObject(title, description, dueDate, priority, project) {
+function ToDoObject(title, description, dueDate, priority, project, existingID) {
     let _title = title;
     let _description = description;
     let _dueDate = dueDate;
@@ -10,7 +10,15 @@ function ToDoObject(title, description, dueDate, priority, project) {
     let _id = createID();
 
     function createID() {
-        return Math.floor(Math.random() * Date.now())
+        console.log(existingID);
+        if (existingID) {
+            console.log('existing');
+            return existingID;
+        }
+        else {
+            console.log('new');
+            return Math.floor(Math.random() * Date.now())
+        }
     };
 
     function getID() {

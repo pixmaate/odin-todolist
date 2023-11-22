@@ -12,7 +12,6 @@ function contentDraw() {
     const projectHolderArray = projectHolder();
     const defaultProject = projectObject('Default','Default');
     projectHolderArray.addProject(defaultProject);
-    console.log(projectHolderArray.getAllProjects());
     drawProjectSelector();
 
 
@@ -38,7 +37,6 @@ function contentDraw() {
 //////////////////////
 
     function drawItemCards(itemHolderElement) {
-        console.log(itemHolderElement.getAllItems());
         clearItemCards();
         const itemHolderObject = itemCard(itemHolderElement).makeItemCard(itemHolderElement.getAllItems());
 
@@ -177,7 +175,7 @@ function submitBtnHandler() {
 
         if (loadedCards != null) {
             for (let i=0;i<loadedCards.length;i++) {
-                const existingItem = createOneItem(loadedCards[i][1],loadedCards[i][2],loadedCards[i][3],loadedCards[i][4],loadedCards[i][5]);
+                const existingItem = createOneItem(loadedCards[i][1],loadedCards[i][2],loadedCards[i][3],loadedCards[i][4],loadedCards[i][5], loadedCards[i][0]);
                 itemHolderElement.addItem(existingItem, itemHolderElement);  
             };
             const drawnItemCards = contentDraw().drawItemCards(itemHolderElement);
@@ -204,8 +202,8 @@ function submitBtnHandler() {
         });
     };
 
-    function createOneItem(title,desc,due,prio,proj) {
-        return ToDoObject(title,desc,due,prio,proj);
+    function createOneItem(title,desc,due,prio,proj,existingID) {
+        return ToDoObject(title,desc,due,prio,proj, existingID);
     };
 
 
@@ -224,7 +222,6 @@ function itemCard(itemArray) {
 
     function makeItemCard(toDoItem) {
         const selectedProject = document.querySelector('#dropdown-button').textContent;
-        console.log(selectedProject);
         for (const [key] of Object.entries(toDoItem)) {
             if (selectedProject == 'Default') {
                 const itemCard = createItemHeader(itemArray).itemHeader(toDoItem[key]);
@@ -276,6 +273,7 @@ function createItemHeader(itemArray) {
 
     function deleteItemCard(itemID,toDoItem) {
         itemArray.removeItem(toDoItem);
+        getStorage().deleteFromLocal(toDoItem);
         const drawnItemCards = contentDraw().drawItemCards(itemArray);
 
 
@@ -420,7 +418,19 @@ function getStorage() {
         
     }
 
-    return {saveToLocal, loadFromLocal}
+    function deleteFromLocal(toDoItem) {
+        const loadedList = JSON.parse(localStorage.getItem("item_list"));
+        if (loadedList != null) {
+            for (let i=0;i<loadedList.length;i++) {
+                if (loadedList[i][0] === toDoItem.getID()) {
+                    loadedList.splice(i,1);
+                    localStorage.setItem("item_list", JSON.stringify(loadedList));
+                }
+            }
+        }
+    }
+
+    return {saveToLocal, loadFromLocal, deleteFromLocal}
 };
 
 
